@@ -5,8 +5,8 @@
   --text: #111111;
   --muted: #4c4c4c;
   --border: #d8d8d8;
-  --banner-height: 200px;
-  --banner-collapsed-height: 72px;
+  --banner-height: 220px;
+  --banner-collapsed-height: 64px;
   --page-width: 1120px;
   --shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
 }
@@ -42,33 +42,107 @@ img {
   left: 0;
   right: 0;
   height: var(--banner-height);
-  background-image: url("banner_img.jpg");
-  background-position: center;
-  background-size: cover;
   z-index: 1000;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
   overflow: hidden;
+  isolation: isolate;
   transition: height 220ms ease, box-shadow 220ms ease;
+}
+
+.site-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("banner_img.jpg");
+  background-position: center;
+  background-size: cover;
+  transform-origin: center;
+  transition: filter 220ms ease, transform 220ms ease;
+  z-index: 0;
 }
 
 .site-banner__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.45));
+  z-index: 1;
   transition: background 220ms ease, opacity 220ms ease;
+}
+
+.site-banner__inner {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: min(calc(100% - 48px), var(--page-width));
+  z-index: 2;
+}
+
+.site-banner__name {
+  position: absolute;
+  top: 20px;
+  left: -100px;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 1.4rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  transition: font-size 220ms ease, top 220ms ease, transform 220ms ease, letter-spacing 220ms ease;
+}
+
+.site-banner__social {
+  position: absolute;
+  top: 64px;
+  left: -100px;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  transition: top 220ms ease, left 220ms ease, transform 220ms ease;
+}
+
+.site-banner__social-link {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.96);
+  color: #111111;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.site-banner__social-link:hover,
+.site-banner__social-link:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+}
+
+.site-banner__social-link--ssrn {
+  font-size: 0.46rem;
+  letter-spacing: 0.03em;
 }
 
 .site-nav {
   position: absolute;
+  bottom: 14px;
   left: 50%;
-  bottom: 16px;
   transform: translateX(-50%);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.5rem;
-  width: min(92%, 760px);
-  z-index: 1;
+  gap: 0.4rem;
+  z-index: 2;
   transition: bottom 220ms ease;
 }
 
@@ -77,12 +151,34 @@ body.is-banner-compact .site-banner {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
-body.is-banner-compact .site-banner__overlay {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.58));
+body.is-banner-compact .site-banner::before {
+  filter: brightness(0.58) saturate(0.86);
+  transform: scale(1.03);
 }
 
+body.is-banner-compact .site-banner__overlay {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.72));
+}
+
+/* name: shrink + vertically center in collapsed bar */
+body.is-banner-compact .site-banner__name {
+  font-size: 0.78rem;
+  letter-spacing: 0.11em;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+/* social: move to right side, vertically centered */
+body.is-banner-compact .site-banner__social {
+  top: 50%;
+  left: 100%;
+  transform: translate(-100%, -50%);
+}
+
+/* nav: center vertically in collapsed bar */
 body.is-banner-compact .site-nav {
-  bottom: 10px;
+  bottom: calc((var(--banner-collapsed-height) - 37px) / 2);
 }
 
 .site-nav__link {
@@ -141,14 +237,14 @@ body.is-banner-compact .site-nav {
 
 .bio-layout__intro h1 {
   margin: 0;
-  font-size: clamp(1.8rem, 2.0vw, 2.6rem);
+  font-size: clamp(1.6rem, 1.8vw, 2.4rem);
   font-weight: 400;
-  line-height: 1.05;
+  line-height: 1.0;
 }
 
 .bio-layout__title {
   margin: 8px 0 12px;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
 .bio-layout__summary {
@@ -201,6 +297,11 @@ body.is-banner-compact .site-nav {
   text-decoration: none;
 }
 
+.bio-contact-list a:hover,
+.bio-contact-list a:focus-visible {
+  text-decoration: underline;
+}
+
 .bio-contact-list a:focus-visible {
   outline: 3px solid rgba(0, 98, 172, 0.14);
   outline-offset: 4px;
@@ -218,14 +319,14 @@ body.is-banner-compact .site-nav {
 .research-section h1,
 .research-section h2 {
   margin: 0 0 18px;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .publication-card {
   display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
+  grid-template-columns: 180px minmax(0, 1fr);
   gap: 20px;
   align-items: start;
 }
@@ -479,7 +580,15 @@ body.is-banner-compact .site-nav {
 @media (max-width: 900px) {
   :root {
     --banner-height: 220px;
-    --banner-collapsed-height: 82px;
+    --banner-collapsed-height: 64px;
+  }
+
+  .site-banner__inner {
+    width: min(calc(100% - 32px), var(--page-width));
+  }
+
+  .site-banner__name {
+    font-size: 1.2rem;
   }
 
   .bio-layout,
@@ -517,7 +626,7 @@ body.is-banner-compact .site-nav {
 @media (max-width: 640px) {
   :root {
     --banner-height: 206px;
-    --banner-collapsed-height: 96px;
+    --banner-collapsed-height: 64px;
   }
 
   .page {
@@ -525,9 +634,31 @@ body.is-banner-compact .site-nav {
     padding-top: calc(var(--banner-height) + 34px);
   }
 
+  .site-banner__inner {
+    width: calc(100% - 24px);
+  }
+
+  .site-banner__name {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .site-banner__social {
+    top: 52px;
+  }
+
+  .site-banner__social-link {
+    width: 30px;
+    height: 30px;
+  }
+
+  .site-banner__social-link--ssrn {
+    font-size: 0.4rem;
+  }
+
   .site-nav__link {
-    padding: 0.5rem 0.9rem;
-    font-size: 0.96rem;
+    padding: 0.38rem 0.65rem;
+    font-size: 0.84rem;
   }
 
   .bio-layout__body p,
