@@ -72,17 +72,17 @@ img {
 .site-banner__inner {
   position: absolute;
   top: 0;
-  left: 50%;
+  left: 24px;
+  right: 24px;
   bottom: 0;
-  transform: translateX(-50%);
-  width: min(calc(100% - 48px), var(--page-width));
+  width: auto;
   z-index: 2;
 }
 
 .site-banner__name {
   position: absolute;
   top: 20px;
-  left: -100px;
+  left: 0;
   color: #ffffff;
   text-decoration: none;
   text-transform: uppercase;
@@ -97,7 +97,7 @@ img {
 .site-banner__social {
   position: absolute;
   top: 64px;
-  left: -100px;
+  left: 0;
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -606,7 +606,8 @@ body.is-banner-compact .site-nav {
   }
 
   .site-banner__inner {
-    width: min(calc(100% - 32px), var(--page-width));
+    left: 16px;
+    right: 16px;
   }
 
   .site-banner__name {
@@ -772,7 +773,8 @@ body.is-banner-compact .site-nav {
   }
 
   .site-banner__inner {
-    width: calc(100% - 24px);
+    left: 12px;
+    right: 12px;
   }
 
   .page {
