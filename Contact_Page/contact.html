@@ -13,7 +13,13 @@
       <a class="site-banner__name" href="../Home_Page/index.html">Gulnara Zaynutdinova</a>
       <nav class="site-nav" aria-label="Main navigation">
         <a class="site-nav__link" href="../Home_Page/index.html">Home</a>
-        <a class="site-nav__link" href="../Research_Page/research.html">Research</a>
+        <div class="site-nav__item site-nav__item--dropdown">
+          <button class="site-nav__link site-nav__submenu-trigger" type="button" aria-haspopup="true">Research</button>
+          <div class="site-nav__submenu" aria-label="Research sections">
+            <a class="site-nav__submenu-link" href="../Research_Page/working_papers.html">Working Papers</a>
+            <a class="site-nav__submenu-link" href="../Research_Page/research.html">Published &amp; Accepted</a>
+          </div>
+        </div>
         <a class="site-nav__link" href="../Teaching_Page/teaching.html">Teaching</a>
         <a class="site-nav__link site-nav__link--active" href="../Contact_Page/contact.html">Contact</a>
         <a class="site-nav__link" href="https://infostations.wvu.edu/Webform/Wayfinding/WFBUE/WFBUEMedia/CV_ZaynutdinovaGulnara312.pdf" target="_blank" rel="noopener noreferrer">CV</a>
@@ -32,7 +38,9 @@
   </header>
   <nav class="site-nav-mobile" id="site-nav-mobile" aria-label="Mobile navigation" hidden>
     <a class="site-nav-mobile__link" href="../Home_Page/index.html">Home</a>
-    <a class="site-nav-mobile__link" href="../Research_Page/research.html">Research</a>
+    <span class="site-nav-mobile__label">Research</span>
+    <a class="site-nav-mobile__link site-nav-mobile__link--child" href="../Research_Page/working_papers.html">Working Papers</a>
+    <a class="site-nav-mobile__link site-nav-mobile__link--child" href="../Research_Page/research.html">Published &amp; Accepted</a>
     <a class="site-nav-mobile__link" href="../Teaching_Page/teaching.html">Teaching</a>
     <a class="site-nav-mobile__link site-nav-mobile__link--active" href="../Contact_Page/contact.html">Contact</a>
     <a class="site-nav-mobile__link" href="https://infostations.wvu.edu/Webform/Wayfinding/WFBUE/WFBUEMedia/CV_ZaynutdinovaGulnara312.pdf" target="_blank" rel="noopener noreferrer">CV</a>
