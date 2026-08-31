@@ -306,15 +306,13 @@ body.is-banner-compact .site-nav {
 }
 
 .bio-layout {
-  display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: 36px;
-  align-items: start;
+  display: flow-root;
 }
 
 .bio-layout__photo {
-  grid-column: 1;
-  grid-row: 1;
+  float: left;
+  width: clamp(120px, 26vw, 280px);
+  margin: 0 clamp(16px, 3vw, 36px) 18px 0;
 }
 
 .bio-layout__photo img {
@@ -322,14 +320,9 @@ body.is-banner-compact .site-nav {
   box-shadow: var(--shadow);
 }
 
-.bio-layout__intro {
-  grid-column: 2;
-  grid-row: 1;
-}
-
 .bio-layout__body {
-  grid-column: 1 / -1;
-  grid-row: 2;
+  clear: both;
+  padding-top: 32px;
 }
 
 .bio-layout__intro h1 {
@@ -689,35 +682,32 @@ body.is-banner-compact .site-nav {
     font-size: 1.2rem;
   }
 
-  .bio-layout,
   .publication-card {
     grid-template-columns: 1fr;
   }
 
-  .bio-layout__intro,
-  .bio-layout__body,
-  .bio-layout__photo {
-    grid-column: 1;
-  }
-
-  .bio-layout__photo {
-    grid-row: 1;
-  }
-
-  .bio-layout__intro {
-    grid-row: 2;
-  }
-
-  .bio-layout__body {
-    grid-row: 3;
-  }
-
-  .bio-layout__photo {
-    max-width: 360px;
-  }
-
   .publication-card__figure-button {
     max-width: 360px;
+  }
+}
+
+@media (max-width: 560px) {
+  .bio-layout__photo {
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+
+  .bio-layout__intro h1 {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+    line-height: 1.05;
+  }
+
+  .bio-layout__title {
+    font-size: 0.95rem;
+  }
+
+  .bio-contact-list a {
+    overflow-wrap: anywhere;
   }
 }
 
@@ -888,5 +878,30 @@ body.is-banner-compact .site-nav {
   .publication-card__abstract p,
   .simple-section p {
     font-size: 1rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .bio-layout__summary {
+    clear: both;
+    margin-top: 0;
+    padding-top: 18px;
+  }
+
+  .bio-layout__intro h1 {
+    font-size: clamp(1.2rem, 4.2vw, 2rem);
+  }
+
+  .bio-layout__title {
+    font-size: clamp(0.95rem, 2.7vw, 1.1rem);
+  }
+
+  .bio-contact-list {
+    font-size: clamp(0.82rem, 2.2vw, 1rem);
+  }
+
+  .bio-contact-list__icon {
+    width: clamp(0.78rem, 2.2vw, 0.95rem);
+    height: clamp(0.78rem, 2.2vw, 0.95rem);
   }
 }
