@@ -433,6 +433,9 @@ body.is-banner-compact .site-nav {
 }
 
 .publication-card__figure-button {
+  width: 180px;
+  max-width: 100%;
+  justify-self: start;
   padding: 0;
   border: 1px solid var(--border);
   background: #ffffff;
@@ -687,7 +690,8 @@ body.is-banner-compact .site-nav {
   }
 
   .publication-card__figure-button {
-    max-width: 360px;
+    width: 180px;
+    max-width: 100%;
   }
 }
 
